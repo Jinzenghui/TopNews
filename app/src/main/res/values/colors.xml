@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="mid_grey">#40808080</color>
-
+    <color name="background_light">#fafafa</color>
     <color name="content_placeholder">#ffe0e0e0</color>
 
     <color name="light_icon">#ffffffff</color>
@@ -18,5 +18,5 @@
     <color name="text_primary_light">#ffffffff</color>
 
     <color name="status_bar_back">#ff676767</color>
-
+    <color name="scrim">#99323232</color>
 </resources>

@@ -13,4 +13,6 @@
     <string name="click_login">点击头像登录</string>
 
     <string name="topnews" translatable="false">网易头条</string>
+    <string name="transition_topnew" translatable="false">topnewsimage</string>
+    <string name="transition_topnew_linear" translatable="false">topnewlinear</string>
 </resources>
