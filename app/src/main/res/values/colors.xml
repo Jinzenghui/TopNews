@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="mid_grey">#40808080</color>
+
+    <color name="content_placeholder">#ffe0e0e0</color>
+
+    <color name="light_icon">#ffffffff</color>
+    <color name="divider">#1f000000</color>
+
+    <color name="gif_badge_light_image">#40000000</color>
+    <color name="gif_badge_dark_image">#b3ffffff</color>
+
+    <color name="text_color">#f6000000</color>
+    <color name="text_primary_light">#ffffffff</color>
+
+    <color name="status_bar_back">#ff676767</color>
+
+</resources>
