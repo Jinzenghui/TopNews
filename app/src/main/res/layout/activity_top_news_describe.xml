@@ -17,13 +17,12 @@
         android:layout_height="match_parent"
         android:background="@color/background_light"
         android:transitionName="@string/transition_topnew_linear"
-        android:transitionGroup="false"
-        >
+        android:transitionGroup="false">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
 
             <com.example.biac.newstop.widget.ParallaxScrimageView
                 android:id="@+id/shot"
@@ -33,15 +32,12 @@
                 android:foreground="@drawable/mid_grey_ripple"
                 android:stateListAnimator="@animator/app_bar_pin"
                 android:transitionName="@string/transition_topnew"
-                app:srcimColor="@color/srcim"
-                app:scrimAlpha="0f"
+                app:scrimColor="@color/scrim"
+                app:scrimAlpha="0"
                 app:maxScrimAlpha="0.4"
-                app:parallaxFactor="-0.5"
-                >
+                app:parallaxFactor="-0.5"/>
 
-            </com.example.biac.newstop.widget.ParallaxScrimageView>
-
-            <com.example.biac.newstop.widget.TranslateYTextView
+             <com.example.biac.newstop.widget.TranslateYTextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +51,7 @@
                 app:maxScrimAlpha="0.4"
                 app:parallaxFactor="-0.5"
                 />
-        </FrameLayout>
+         </FrameLayout>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -65,29 +61,26 @@
             android:elevation="1dp"
             android:background="#3b000000"
             style="@style/Widget.Look.HomeToolbar"
-            app:title="@string/topnews"
-            />
+            app:title="@string/topnews"/>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="250dp"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <ProgressBar
                     android:id="@+id/progress"
+                    style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_gravity="center"
-                    />
+                    android:layout_gravity="center"/>
+
                 <org.sufficientlysecure.htmltextview.HtmlTextView
                     android:id="@+id/htNewsContent"
                     android:layout_width="match_parent"
@@ -101,6 +94,9 @@
                     android:background="@color/background_light"/>
 
             </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
+
     </FrameLayout>
+
 </com.example.biac.newstop.widget.ElasticDragDismissFrameLayout>

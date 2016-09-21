@@ -4,9 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +19,13 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.biac.newstop.Activity.TopNewsDescribeActivity;
 import com.example.biac.newstop.MainActivity;
 import com.example.biac.newstop.R;
 import com.example.biac.newstop.bean.NewsBean;
@@ -29,6 +33,7 @@ import com.example.biac.newstop.config.Config;
 import com.example.biac.newstop.util.DBUtils;
 import com.example.biac.newstop.util.DensityUtil;
 import com.example.biac.newstop.util.DribbbleTarget;
+import com.example.biac.newstop.util.Help;
 import com.example.biac.newstop.util.ObservableColorMatrix;
 import com.example.biac.newstop.widget.BadgedFourThreeImageView;
 
@@ -94,25 +99,24 @@ public class TopNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.textView.setTextColor(Color.BLACK);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 DBUtils.getDB(mContext).insertHasRead(Config.ZHIHU, newsBeanItem.getTitle(), 1);
                 holder.textView.setTextColor(Color.GRAY);
                 holder.sourceTextView.setTextColor(Color.GRAY);
-                Toast.makeText(mContext, newsBeanItem.getTitle(), Toast.LENGTH_SHORT).show();
+                startTopnewsActivity(newsBeanItem, holder);
+
             }
         });
-
         holder.textView.setText(newsBeanItem.getTitle());
         holder.sourceTextView.setText(newsBeanItem.getSource());
-
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        holder.linearLayout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startTopnewsActivity( newsBeanItem, holder );
+                    }
+                });
 
         Glide.with(mContext)
                 .load(newsBeanItem.getImgsrc())
@@ -155,6 +159,26 @@ public class TopNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }).diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop().override(widthPx, heighPx)
                 .into(new DribbbleTarget(holder.imageView, false));
+    }
+
+    private void startTopnewsActivity(NewsBean newsBeanItem,RecyclerView.ViewHolder holder){
+
+        Intent intent = new Intent(mContext, TopNewsDescribeActivity.class);
+        intent.putExtra("docid", newsBeanItem.getDocid());
+        intent.putExtra("title", newsBeanItem.getTitle());
+        intent.putExtra("image", newsBeanItem.getImgsrc());
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            final android.support.v4.util.Pair<View, String>[] pairs = Help.createSafeTransitionParticipants
+                    ((Activity) mContext, false, new android.support.v4.util.Pair<>(((TopNewsViewHolder) holder).imageView, mContext.getString(R.string.transition_topnew)),
+                            new android.support.v4.util.Pair<>(((TopNewsViewHolder) holder).linearLayout, mContext.getString(R.string.transition_topnew_linear)));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, pairs);
+            mContext.startActivity(intent, options.toBundle());
+        }else {
+
+            mContext.startActivity(intent);
+
+        }
+
     }
 
     @Override

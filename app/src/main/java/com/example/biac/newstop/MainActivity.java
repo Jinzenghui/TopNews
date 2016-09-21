@@ -2,24 +2,17 @@ package com.example.biac.newstop;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.SimpleArrayMap;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.biac.newstop.fragment.TopNewsFragment;
 
-public class MainActivity extends AppCompatActivity implements TopNewsFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements TopNewsFragment.OnFragmentInteractionListener{
 
     private TextView mTextView;
     private ImageView mImageView;
@@ -37,121 +30,125 @@ public class MainActivity extends AppCompatActivity implements TopNewsFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         mFragmentContainer = (FrameLayout)findViewById(R.id.fragment_container);
 
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+        currentFragment = new TopNewsFragment();
 
-        //起到监听的效果
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentFragment).commit();
 
-        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+//
+//        //起到监听的效果
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
+//
+//        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
 
 //        mTextView = (TextView)findViewById(R.id.textView);
 //        mImageView = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.ivAvatar);
 //        mImageView.setOnClickListener(this);
 
-        addfragmentsAndTitle();
+//        addfragmentsAndTitle();
     }
 
-    @Override
-    public void onBackPressed(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }else{
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed(){
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if(drawer.isDrawerOpen(GravityCompat.START)){
+//            drawer.closeDrawer(GravityCompat.START);
+//        }else{
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public void onClick(View v) {
+//
+//    }
+//
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        currentMenuItem = item;
+//
+//        int id = item.getItemId();
+//        String string = null;
+//        switch (id){
+//            case R.id.topnewsitem:
+//                switchFragment(getFragmentById(currentMenuItem.getItemId()), mTitleArrayMap.get(currentMenuItem.getItemId()));
+//                break;
+//            case R.id.nav_about:
+//                string = "关于";
+//                break;
+//            case R.id.nav_friend:
+//                string = "好友";
+//                break;
+//            case R.id.nav_manage:
+//                string = "通知";
+//                break;
+//            case R.id.nav_message:
+//                string = "私信";
+//                break;
+//            case R.id.nav_night:
+//                string = "夜间模式";
+//                break;
+//            case R.id.nav_notification:
+//                string = "通知";
+//                break;
+//            case R.id.nav_setting:
+//                string= "设置";
+//                break;
+//            case R.id.nav_suggestion:
+//                string = "意见反馈";
+//                break;
+//            case R.id.nav_theme:
+//                string = "主题风格";
+//                break;
+//        }
+////        if (!TextUtils.isEmpty(string))
+////            mTextView.setText("你点击了"+string);
+////        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+////        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+//
+//    private Fragment getFragmentById(int id){
+//        Fragment fragment = null;
+//        switch(id){
+//            case R.id.topnewsitem:
+//                break;
+//        }
+//
+//        return fragment;
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        currentMenuItem = item;
-
-        int id = item.getItemId();
-        String string = null;
-        switch (id){
-            case R.id.topnewsitem:
-                switchFragment(getFragmentById(currentMenuItem.getItemId()), mTitleArrayMap.get(currentMenuItem.getItemId()));
-                break;
-            case R.id.nav_about:
-                string = "关于";
-                break;
-            case R.id.nav_friend:
-                string = "好友";
-                break;
-            case R.id.nav_manage:
-                string = "通知";
-                break;
-            case R.id.nav_message:
-                string = "私信";
-                break;
-            case R.id.nav_night:
-                string = "夜间模式";
-                break;
-            case R.id.nav_notification:
-                string = "通知";
-                break;
-            case R.id.nav_setting:
-                string= "设置";
-                break;
-            case R.id.nav_suggestion:
-                string = "意见反馈";
-                break;
-            case R.id.nav_theme:
-                string = "主题风格";
-                break;
-        }
-//        if (!TextUtils.isEmpty(string))
-//            mTextView.setText("你点击了"+string);
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private Fragment getFragmentById(int id){
-        Fragment fragment = null;
-        switch(id){
-            case R.id.topnewsitem:
-                break;
-        }
-
-        return fragment;
-    }
-
-    private void addfragmentsAndTitle(){
-        mTitleArrayMap.put(R.id.topnewsitem, getResources().getString(R.string.topnews));
-    }
-
-    private void switchFragment(Fragment fragment, String title){
-
-        if(currentFragment == null || !currentFragment.getClass().getName().equals(fragment.getClass().getName()))
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-        currentFragment = fragment;
-    }
+//    private void addfragmentsAndTitle(){
+//        mTitleArrayMap.put(R.id.topnewsitem, getResources().getString(R.string.topnews));
+//    }
+//
+//    private void switchFragment(Fragment fragment, String title){
+//
+//        if(currentFragment == null || !currentFragment.getClass().getName().equals(fragment.getClass().getName()))
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+//
+//        currentFragment = fragment;
+//    }
 
     public interface LoadingMore{
         void loadingStart();
